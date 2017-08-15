@@ -75,3 +75,33 @@ print(sample_validation_prob)
 
 small_validation_prob = small_model.predict(sample_validation_data,output_type='probability')
 print(small_validation_prob)
+
+sample_validation_data[1]
+small_model.show(view="Tree")
+
+print small_model.evaluate(train_data)['accuracy']
+print decision_tree_model.evaluate(train_data)['accuracy']
+
+print small_model.evaluate(validation_data)['accuracy']
+print decision_tree_model.evaluate(validation_data)['accuracy']
+
+big_model = graphlab.decision_tree_classifier.create(train_data, validation_set=None,
+                   target = target, features = features, max_depth = 10)
+print big_model.evaluate(train_data)['accuracy']
+print big_model.evaluate(validation_data)['accuracy']
+
+predictions = decision_tree_model.predict(validation_data)
+diff = validation_data['safe_loans']- predictions
+#false negative diff == 2, false postive == -2
+fn = diff[diff==2]
+fp = diff[diff==-2]
+fn_num = len(fn)
+fp_num = len(fp)
+print fn_num
+print fp_num
+total_cost = fp_num*20000 + fn_num * 10000
+print total_cost
+
+
+
+
